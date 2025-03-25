@@ -47,14 +47,13 @@ st.title("Dashboard Peminjaman Sepeda 🚴‍♂️")
 
 # **Visualisasi Total Peminjaman Sepeda Berdasarkan Hari dalam Seminggu**
 st.subheader("Total Peminjaman Sepeda Berdasarkan Hari dalam Seminggu")
-fig, ax = plt.subplots(figsize=(10, 6))  # Sesuaikan ukuran agar mirip
+fig, ax = plt.subplots(figsize=(8, 6))  
 sns.barplot(x=weekday_labels, y=daily_bike_rentals.values, palette="Purples", ax=ax)
 ax.set_title("Total Peminjaman Sepeda Berdasarkan Hari dalam Seminggu")
 ax.set_xlabel("Hari dalam Seminggu")
 ax.set_ylabel("Total Peminjaman Sepeda")
 # Menyesuaikan sumbu Y agar terlihat seperti di gambar
-ax.set_ylim(0, 500000)  # Sesuaikan sesuai dengan data
-# Menghapus titik/koma pada angka di sumbu Y
+ax.set_ylim(0, 500000)  
 ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f"{int(x)}"))
 ax.set_xticklabels(weekday_labels, rotation=45)
 st.pyplot(fig)
