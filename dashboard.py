@@ -47,7 +47,7 @@ st.title("Dashboard Peminjaman Sepeda 🚴‍♂️")
 
 # **Visualisasi Total Peminjaman Sepeda Berdasarkan Hari dalam Seminggu**
 st.subheader("Total Peminjaman Sepeda Berdasarkan Hari dalam Seminggu")
-fig, ax = plt.subplots(figsize=(8, 5))
+fig, ax = plt.subplots(figsize=(10, 6))
 sns.barplot(x=daily_bike_rentals.index, y=daily_bike_rentals.values, palette="Purples", ax=ax)
 ax.set_title("Total Peminjaman Sepeda Berdasarkan Hari dalam Seminggu")
 ax.set_xlabel("Hari dalam Seminggu")
