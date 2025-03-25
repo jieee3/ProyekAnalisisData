@@ -25,20 +25,32 @@ with st.sidebar:
 filtered_data = all_data[(all_data["dteday"] >= pd.to_datetime(start_date)) & 
                          (all_data["dteday"] <= pd.to_datetime(end_date))]
 
-# **Menghitung total peminjaman sepeda per hari dalam seminggu**
+# **Cek kolom yang tersedia di dataset**
+st.sidebar.subheader("Debugging")
+st.sidebar.write("Kolom yang tersedia:", list(filtered_data.columns))
+
+# Pastikan kolom ada sebelum mengaksesnya
 if "weekday" in filtered_data.columns and "cnt" in filtered_data.columns:
     daily_bike_rentals = filtered_data.groupby("weekday")["cnt"].sum()
 else:
     st.error("Kolom weekday dan cnt tidak ditemukan!")
+    st.stop()  # Hentikan eksekusi jika ada error
 
-# **Menghitung total peminjaman sepeda per jam dalam sehari**
 if "hr" in filtered_data.columns and "cnt" in filtered_data.columns:
     hour_bike_rentals = filtered_data.groupby("hr")["cnt"].sum()
 else:
     st.error("Kolom hr dan cnt tidak ditemukan!")
+    st.stop()
 
 # Fungsi untuk menghitung total peminjaman berdasarkan kategori tertentu
 def calculate_rentals(df):
+    required_columns = ["holiday", "weekday", "workingday", "season", "cnt"]
+    missing_columns = [col for col in required_columns if col not in df.columns]
+    
+    if missing_columns:
+        st.error(f"Kolom berikut tidak ditemukan: {missing_columns}")
+        st.stop()
+    
     return {
         "holiday": df.groupby("holiday")["cnt"].sum(),
         "weekday": df.groupby("weekday")["cnt"].sum(),
@@ -47,6 +59,7 @@ def calculate_rentals(df):
     }
 
 rental_data = calculate_rentals(filtered_data)
+
 
 # Label untuk hari dalam seminggu
 weekday_labels = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"]
