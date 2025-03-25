@@ -56,13 +56,21 @@ ax.set_xticks(range(7))
 ax.set_xticklabels(weekday_labels, rotation=45)
 st.pyplot(fig)
 
+# **Fitur Interaktif: Slider untuk Memfilter Rentang Jam**
+st.sidebar.subheader("Filter Rentang Jam")
+min_hour, max_hour = st.sidebar.slider("Pilih Rentang Jam", 0, 23, (0, 23))
+
+# Filter data berdasarkan jam yang dipilih
+filtered_hour_bike_rentals = hour_bike_rentals.loc[min_hour:max_hour]
+
 # **Visualisasi Total Peminjaman Sepeda Berdasarkan Jam dalam Sehari**
-st.subheader("Total Peminjaman Sepeda Berdasarkan Jam dalam Sehari")
+st.subheader(f"Total Peminjaman Sepeda Berdasarkan Jam ({min_hour}:00 - {max_hour}:00)")
 fig, ax = plt.subplots(figsize=(10, 6))
-sns.barplot(x=hour_bike_rentals.index, y=hour_bike_rentals.values, palette="Purples", ax=ax)
-ax.set_title("Total Peminjaman Sepeda Berdasarkan Jam dalam Sehari")
+sns.barplot(x=filtered_hour_bike_rentals.index, y=filtered_hour_bike_rentals.values, palette="Purples", ax=ax)
+ax.set_title(f"Total Peminjaman Sepeda Berdasarkan Jam ({min_hour}:00 - {max_hour}:00)")
 ax.set_xlabel("Jam dalam Sehari")
 ax.set_ylabel("Total Peminjaman Sepeda")
 st.pyplot(fig)
+
 
 st.caption("by Rosievi hijrih juniar.2025")
