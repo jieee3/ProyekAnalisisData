@@ -64,7 +64,7 @@ min_hour, max_hour = st.sidebar.slider("Pilih Rentang Jam", 0, 23, (0, 23))
 filtered_hour_bike_rentals = hour_bike_rentals.loc[min_hour:max_hour]
 
 # **Visualisasi Total Peminjaman Sepeda Berdasarkan Jam dalam Sehari**
-st.subheader(f"Total Peminjaman Sepeda Berdasarkan Jam ({min_hour}:00 - {max_hour}:00)")
+st.subheader(f"Total Peminjaman Sepeda Berdasarkan Jam ({min_hour}:00 - {max_hour}:00) dalam sehari")
 fig, ax = plt.subplots(figsize=(10, 6))
 sns.barplot(x=filtered_hour_bike_rentals.index, y=filtered_hour_bike_rentals.values, palette="Purples", ax=ax)
 ax.set_title(f"Total Peminjaman Sepeda Berdasarkan Jam ({min_hour}:00 - {max_hour}:00)")
