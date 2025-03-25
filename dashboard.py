@@ -46,14 +46,14 @@ weekday_labels = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"
 st.title("Dashboard Peminjaman Sepeda 🚴‍♂️")
 
 # **Visualisasi Total Peminjaman Sepeda Berdasarkan Hari dalam Seminggu**
-st.subheader("Total Peminjaman Sepeda Berdasarkan Hari dalam Seminggu")
-fig, ax = plt.subplots(figsize=(10, 6))
-sns.barplot(x=daily_bike_rentals.index, y=daily_bike_rentals.values, palette="Purples", ax=ax)
+daily_bike_rentals = daily_bike_rentals.sort_index()
+
+sns.barplot(x=weekday_labels, y=daily_bike_rentals.values, palette="Purples", ax=ax)
 ax.set_title("Total Peminjaman Sepeda Berdasarkan Hari dalam Seminggu")
 ax.set_xlabel("Hari dalam Seminggu")
 ax.set_ylabel("Total Peminjaman Sepeda")
-ax.set_xticks(range(7))
 ax.set_xticklabels(weekday_labels, rotation=45)
+
 st.pyplot(fig)
 
 # **Fitur Interaktif: Slider untuk Memfilter Rentang Jam**
