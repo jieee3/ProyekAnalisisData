@@ -53,7 +53,8 @@ ax.set_title("Total Peminjaman Sepeda Berdasarkan Hari dalam Seminggu")
 ax.set_xlabel("Hari dalam Seminggu")
 ax.set_ylabel("Total Peminjaman Sepeda")
 # Menyesuaikan sumbu Y agar terlihat seperti di gambar
-ax.set_ylim(0, 500000)  
+ax.set_ylim(0, daily_bike_rentals.max() * 1.1)
+
 ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f"{int(x)}"))
 ax.set_xticklabels(weekday_labels, rotation=45)
 st.pyplot(fig)
