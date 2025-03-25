@@ -41,13 +41,14 @@ else:
 
 # Label untuk hari dalam seminggu
 weekday_labels = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"]
-
+# Pastikan urutan indeks sesuai dengan urutan hari
+daily_bike_rentals = daily_bike_rentals.reindex(range(7))
 # Menampilkan judul dashboard
 st.title("Dashboard Peminjaman Sepeda 🚴‍♂️")
 
 # **Visualisasi Total Peminjaman Sepeda Berdasarkan Hari dalam Seminggu**
 st.subheader("Total Peminjaman Sepeda Berdasarkan Hari dalam Seminggu")
-fig, ax = plt.subplots(figsize=(8, 6))  
+fig, ax = plt.subplots(figsize=(10, 6))  
 sns.barplot(x=weekday_labels, y=daily_bike_rentals.values, palette="Purples", ax=ax)
 ax.set_title("Total Peminjaman Sepeda Berdasarkan Hari dalam Seminggu")
 ax.set_xlabel("Hari dalam Seminggu")
