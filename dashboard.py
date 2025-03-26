@@ -9,6 +9,7 @@ all_data = pd.read_csv("all_data.csv")
 # Konversi tanggal ke format datetime
 all_data["dteday"] = pd.to_datetime(all_data["dteday"])
 
+
 # Sidebar untuk filter rentang tanggal
 min_date = all_data["dteday"].min()
 max_date = all_data["dteday"].max()
@@ -33,6 +34,7 @@ elif "weekday_hour" in filtered_data.columns and "cnt_hour" in filtered_data.col
 else:
     st.error("Kolom weekday dan cnt tidak ditemukan!")
 
+
 # **Menghitung total peminjaman sepeda per jam dalam sehari**
 if "hr" in filtered_data.columns and "cnt_hour" in filtered_data.columns:
     hour_bike_rentals = filtered_data.groupby("hr")["cnt_hour"].sum()
@@ -47,12 +49,12 @@ st.title("Dashboard Peminjaman Sepeda 🚴‍♂️")
 
 # **Visualisasi Total Peminjaman Sepeda Berdasarkan Hari dalam Seminggu**
 st.subheader("Total Peminjaman Sepeda Berdasarkan Hari dalam Seminggu")
-fig, ax = plt.subplots(figsize=(6, 4))
+fig, ax = plt.subplots(figsize=(8, 5))
 sns.barplot(x=daily_bike_rentals.index, y=daily_bike_rentals.values, palette="Purples", ax=ax)
 ax.set_title("Total Peminjaman Sepeda Berdasarkan Hari dalam Seminggu")
 ax.set_xlabel("Hari dalam Seminggu")
 ax.set_ylabel("Total Peminjaman Sepeda")
-ax.set_xticks(range(len(weekday_labels)))
+ax.set_xticks(range(7))
 ax.set_xticklabels(weekday_labels, rotation=45)
 st.pyplot(fig)
 
@@ -64,13 +66,13 @@ min_hour, max_hour = st.sidebar.slider("Pilih Rentang Jam", 0, 23, (0, 23))
 filtered_hour_bike_rentals = hour_bike_rentals.loc[min_hour:max_hour]
 
 # **Visualisasi Total Peminjaman Sepeda Berdasarkan Jam dalam Sehari**
-st.subheader(f"Total Peminjaman Sepeda Berdasarkan Jam ({min_hour}:00 - {max_hour}:00) dalam sehari")
+st.subheader(f"Total Peminjaman Sepeda Berdasarkan Jam ({min_hour}:00 - {max_hour}:00)")
 fig, ax = plt.subplots(figsize=(10, 6))
 sns.barplot(x=filtered_hour_bike_rentals.index, y=filtered_hour_bike_rentals.values, palette="Purples", ax=ax)
 ax.set_title(f"Total Peminjaman Sepeda Berdasarkan Jam ({min_hour}:00 - {max_hour}:00)")
 ax.set_xlabel("Jam dalam Sehari")
 ax.set_ylabel("Total Peminjaman Sepeda")
+ax.set_ylim(0, hour_bike_rentals.max() * 1.1)  # Menyesuaikan skala sumbu Y
 st.pyplot(fig)
-
 
 st.caption("by Rosievi hijrih juniar.2025")
